@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do List</title>
+</head>
+<body>
+    <h2>My To Do List</h2>
+    <input type="text" id="d2" placeholder="Enter task">
+    <button onclick="add()">Add</button>
+    <button onclick="deletetodo()">Delete Last</button>
+    <ul id="d1"></ul>
+<script>
+    var list = [];
+    var data = localStorage.getItem("mytodos");
+    if (data != null) {
+        list = JSON.parse(data);
+    }
+    function UI() {
+        var ul = document.getElementById("d1");
+        ul.innerHTML = "";
+
+       list.forEach(element => {
+            var li = document.createElement("li");
+            li.innerText = element;
+            ul.appendChild(li);
+       });
+        }
+        localStorage.setItem("mytodos", JSON.stringify(list));
+    
+    UI();
+    function add() {
+        var val = document.getElementById("d2").value;
+        if (val != "") {
+            list.push(val);
+            document.getElementById("d2").value = "";
+            UI();
+        }
+    }
+    function deletetodo() {
+        list.pop();
+        UI();
+    }
+
+</script>
+
+</body>
+</html>
